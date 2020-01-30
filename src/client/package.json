@@ -50,7 +50,8 @@
     "postbuild": "rm -rf ../extension/react && mv build ../extension/react",
     "manage:translations": "node scripts/manageTranslations.js",
     "test": "react-scripts test --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/**/*.{ts,tsx}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -64,8 +65,12 @@
   "devDependencies": {
     "@types/enzyme": "^3.9.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.0",
     "react-intl-translations-manager": "^5.0.3",
     "redux-mock-store": "^1.5.4"
   },
