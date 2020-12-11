@@ -30,6 +30,7 @@ export enum EXTENSION_COMMANDS {
   GET_FEATURES = "get-features",
   LOG = "log",
   OPEN_LOG = "open-log",
+  GET_REACT_NATIVE_REQUIREMENTS = "get-react-native-requirements",
 }
 
 export enum ExtensionModule {

@@ -6,11 +6,15 @@ import * as path from "path";
 import { EXTENSION_COMMANDS } from "../constants/commands";
 import { CLI_SETTINGS } from "../constants/cli";
 import { Logger } from "../utils/logger";
+import RequirementsService from "../utils/requirements/RequirementsService";
+import { MESSAGES } from "../constants/messages";
 
 export class Defaults extends WizardServant {
+  private requirementsService = RequirementsService.getInstance();
   clientCommandMap: Map<EXTENSION_COMMANDS, (message: any) => Promise<IPayloadResponse>> = new Map([
     [EXTENSION_COMMANDS.GET_OUTPUT_PATH_FROM_CONFIG, this.getOutputPathFromConfig],
     [EXTENSION_COMMANDS.BROWSE_NEW_OUTPUT_PATH, this.browseNewOutputPath],
+    [EXTENSION_COMMANDS.GET_REACT_NATIVE_REQUIREMENTS, this.getReactNativeRequirements],
   ]);
 
   public async getOutputPathFromConfig(): Promise<IPayloadResponse> {
@@ -34,6 +38,16 @@ export class Defaults extends WizardServant {
     });
   }
 
+  public async getReactNativeRequirements(): Promise<IPayloadResponse> {
+    const requirements = await this.requirementsService.getReactNativeRequirements();
+    await this.processInvalidReactNativeRequirements(requirements);
+    return {
+      payload: {
+        requirements,
+      },
+    };
+  }
+
   private getDefaultProjectPath(): string {
     let projectPath = vscode.workspace.getConfiguration().get<string>("wts.changeSaveToLocation");
 
@@ -55,5 +69,17 @@ export class Defaults extends WizardServant {
       outputPath = outputPath.substring(1, path[0].path.length);
     }
     return outputPath;
+  }
+
+  private async processInvalidReactNativeRequirements(requirements: IReactNativeRequirement[]) {
+    const message = MESSAGES.WARNINGS.REACT_NATIVE_MISSING_PRERREQUISITES;
+    const failedRequirements = requirements.filter(r => !r.isInstalled);
+    if(failedRequirements && failedRequirements.length > 0) {
+      Logger.appendLog("EXTENSION", "warn", message);
+      for(const requirement of failedRequirements) {
+        Logger.appendLog("EXTENSION", "warn", requirement.name);
+      }
+      await vscode.window.showWarningMessage(message);
+    }
   }
 }
