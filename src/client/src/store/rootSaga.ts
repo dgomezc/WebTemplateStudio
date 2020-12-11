@@ -5,6 +5,7 @@ import {
   loadTemplatesSaga,
   loadLogin,
   loadProjectTypesListSagaAndOptionalFrameworkList,
+  getReactNativePrerequisitesSaga,
   loadroutesNavItemsaSaga,
   resetWizardSaga,
 } from "./config/config/saga";
@@ -17,6 +18,7 @@ function* rootSaga() {
     loadTemplatesSaga(rootSagaVscode),
     loadProjectTypesListSagaAndOptionalFrameworkList(rootSagaVscode),
     loadLogin(rootSagaVscode),
+    getReactNativePrerequisitesSaga(rootSagaVscode),
     loadroutesNavItemsaSaga(),
     resetWizardSaga(),
   ]);

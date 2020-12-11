@@ -5,11 +5,12 @@ import {
   getUserStatus,
   getProjectTypes,
   getPages,
+  getReactNativePrerequisites,
 } from "../../../utils/extensionService/extensionService";
 import { IVersions } from "../../../types/version";
 import { AppState } from "../../combineReducers";
 import { getFrameworksOptions, getPagesOptions } from "../../../utils/cliTemplatesParser";
-import { FRAMEWORK_TYPE } from "../../../utils/constants/constants";
+import { FRAMEWORK_TYPE, PLATFORM } from "../../../utils/constants/constants";
 import { CONFIG_TYPEKEYS } from "../configTypeKeys";
 import { TEMPLATES_TYPEKEYS } from "../../templates/templateTypeKeys";
 import { AZURE_TYPEKEYS } from "../azure/typeKeys";
@@ -79,7 +80,7 @@ export function* loadProjectTypesListSagaAndOptionalFrameworkList(vscode: any) {
       payload: projectType,
     });
 
-    //TODO: probably move and rename this 
+    //TODO: probably move and rename this
     const rnProjectTypeList = [WIZARD_PROJECT_TYPE.RN_TABBED_APP, WIZARD_PROJECT_TYPE.RN_DRAWER_APP];
 
     if (projectType === WIZARD_PROJECT_TYPE.FULL_STACK_APP || rnProjectTypeList.indexOf(projectType) > -1) {
@@ -150,6 +151,25 @@ export function* loadProjectTypesListSagaAndOptionalFrameworkList(vscode: any) {
       };
       selectedPages.push(blankSelect);
       yield put({ type: USERSELECTION_TYPEKEYS.SELECT_PAGES, payload: selectedPages });
+    }
+  }
+}
+
+export function* getReactNativePrerequisitesSaga(vscode: any) {
+  //yield takeEvery(CONFIG_TYPEKEYS.SELECT_WEB_APP, callBack);
+  yield takeEvery(CONFIG_TYPEKEYS.LOAD, callBack);
+
+  function* callBack() {
+    const platform = yield select((state: AppState) => state.config.platform);
+    if (platform === PLATFORM.REACTNATIVE) {
+      const event: any = yield call(getReactNativePrerequisites, vscode);
+      const { requirements } = event.data.payload;
+      console.log(requirements);
+
+      //yield put({
+      //  payload: routes,
+      //  type: TEMPLATES_TYPEKEYS.SET_ROUTES,
+      //});
     }
   }
 }
