@@ -152,6 +152,17 @@ const browseNewOutputPath = (vscode: IVSCodeObject) => {
   );
 };
 
+const getReactNativePrerequisites = (vscode: IVSCodeObject) => {
+  return postMessageAsync(
+    EXTENSION_COMMANDS.GET_REACT_NATIVE_REQUIREMENTS,
+    {
+      module: EXTENSION_MODULES.DEFAULTS,
+      command: EXTENSION_COMMANDS.GET_REACT_NATIVE_REQUIREMENTS,
+    },
+    vscode
+  );
+};
+
 const azureLogout = (vscode: IVSCodeObject) => {
   return postMessageAsync(
     EXTENSION_COMMANDS.AZURE_LOGOUT,
@@ -361,6 +372,7 @@ export {
   getFeatures,
   getOutputPathFromConfig,
   browseNewOutputPath,
+  getReactNativePrerequisites,
   sendTelemetry,
   getResourceGroups,
   GetValidAppServiceName,

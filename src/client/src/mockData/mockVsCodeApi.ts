@@ -2,6 +2,7 @@ import * as mockAzureModule from "./extensionModules/mockAzureModule";
 import * as mockCoreTSModule from "./extensionModules/mockCoreTSModule";
 import * as mockLoggerModule from "./extensionModules/mockLoggerModule";
 import * as mockGenerationModule from "./extensionModules/mockGenerationModule";
+import * as mockDefaultsModule from "./extensionModules/mockDefaultsModule";
 
 import { ENVIRONMENT } from "../utils/constants/constants";
 import { EXTENSION_COMMANDS } from "../utils/constants/commands";
@@ -65,28 +66,13 @@ const mockVsCodeApi = (platform: string) => ({
           mockGenerationModule.openProjectVSCode(message);
           break;
         case EXTENSION_COMMANDS.GET_OUTPUT_PATH_FROM_CONFIG:
-          window.postMessage(
-            {
-              command: EXTENSION_COMMANDS.GET_OUTPUT_PATH_FROM_CONFIG,
-              payload: {
-                scope: message.payload && message.payload.scope ? message.payload.scope : "",
-                outputPath: "/generic_output_path",
-              },
-            },
-            "*"
-          );
+          mockDefaultsModule.getOutputPathFromConfig(message);
           break;
         case EXTENSION_COMMANDS.BROWSE_NEW_OUTPUT_PATH:
-          window.postMessage(
-            {
-              command: EXTENSION_COMMANDS.BROWSE_NEW_OUTPUT_PATH,
-              payload: {
-                scope: message.payload && message.payload.scope ? message.payload.scope : "",
-                outputPath: "/new_generic_output_path",
-              },
-            },
-            "*"
-          );
+          mockDefaultsModule.browseNewOutputPath(message);
+          break;
+        case EXTENSION_COMMANDS.GET_REACT_NATIVE_REQUIREMENTS:
+          mockDefaultsModule.getReactNativeRequirements(message);
           break;
         case EXTENSION_COMMANDS.GET_TEMPLATE_INFO:
           mockCoreTSModule.getTemplateConfig(message);
