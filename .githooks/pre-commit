@@ -3,13 +3,13 @@
 PREFIX="pre-commit:"
 
 cd ./src/client/
-echo "$PREFIX Execute client Lint"
-if ! yarn lint; then
+echo "$PREFIX Execute client lint-staged"
+if ! npx --no-install lint-staged; then
     exit 1
 fi
 
 cd ../extension/
-echo "$PREFIX Execute extension Lint"
-if ! yarn lint; then
+echo "$PREFIX Execute extension lint-staged"
+if ! npx --no-install lint-staged; then
     exit 1
 fi
