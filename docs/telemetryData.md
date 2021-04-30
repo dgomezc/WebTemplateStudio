@@ -1,37 +1,20 @@
-# Telemetry for Web Template Studio - 2021.02
+# Telemetry for Web Template Studio - 2021.03
 
 As new features and pages roll out, percentages  will adjust.
 
-## Frontend Frameworks
+Error to process Frontend Frameworks table.
+Entry data: Forbidden.
+Exception: Unexpected character encountered while parsing value: F. Path '', line 0, position 0..
 
-|Framework Type|Percentage|
-|:---|:---:|
-|React|56.4%|
-|Vue|21.8%|
-|Angular|21.8%|
+Error to process Backend Frameworks table.
+Entry data: Forbidden.
+Exception: Unexpected character encountered while parsing value: F. Path '', line 0, position 0..
 
-## Backend Frameworks
+Error to process Pages table.
+Entry data: Forbidden.
+Exception: Unexpected character encountered while parsing value: F. Path '', line 0, position 0..
 
-|Framework Type|Percentage|
-|:---|:---:|
-|Node|53.2%|
-|AspNet|22.5%|
-|Flask|16.6%|
-|Moleculer|7.8%|
-
-## Pages
-
-|Pages|Percentage|
-|:---|:---:|
-|Blank|36.5%|
-|Master Detail|22.1%|
-|Grid|21.7%|
-|List|19.7%|
-
-## Services
-
-|Services|Percentage|
-|:---|:---:|
-|Cosmos DB|60%|
-|App Service|40%|
+Error to process Services table.
+Entry data: Forbidden.
+Exception: Unexpected character encountered while parsing value: F. Path '', line 0, position 0..
 
